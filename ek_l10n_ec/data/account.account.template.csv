@@ -1,0 +1,245 @@
+id,code,name,reconcile,user_type_id/id,chart_template_id/id
+ec1102050101,1102050101,CUENTAS POR COBRAR CLIENTES NO RELACIONADOS LOCALES,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec1102050102,1102050102,CUENTAS POR COBRAR CLIENTES NO RELACIONADOS EXTRANJEROS,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec1102050103,1102050103,CUENTAS POR COBRAR SUCURSALES PUNTO DE VENTA,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020601,11020601,DOCUMENTOS Y CUENTAS POR COBRAR CLIENTE RELACIONADOS LOCALES,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020602,11020602,DOCUMENTOS Y CUENTAS POR COBRAR CLIENTE RELACIONADOS EXTRANJEROS,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ekec11010301,11020603,ANTICIPOS A PROVEEDORES,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020701,11020701,ANTICIPO SUELDOS,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020702,11020702,ANTICIPO DECIMO TERCER SUELDO,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020703,11020703,ANTICIPO DCEIMO CUARTO SUELDO,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec11020704,11020704,ANTICIPO UTILIDADES,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ekec11010306,11020705,OTROS ANTICIPOS ENTREGADOS,TRUE,account.data_account_type_receivable,l10n_ec_ifrs
+ec110306,11030101,INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMACEN - COMPRADO A TERCEROS,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec110307,11030102,MERCADERIAS EN TRANSITO,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec110309,110302,PROVISION DE INVENTARIOS POR DETERIORO FISICO,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_purchase_vat,11040101,IVA PAGADO EN COMPRAS LOCALES,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_purchase_vat_assets,11040102,IVA PAGADO EN COMPRAS LOCALES DE ACTIVOS FIJOS,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_purchase_vat_goods_imports,11040103,IVA PAGADO EN IMPORTACION DE BIENES,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_purchase_vat_assets_imports,11040104,IVA PAGADO EN IMPORTACION DE ACTIVOS FIJOS,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_sale_vat_outstanding_withholds,11040105,IVA PAGADO EN RETENCIONES DE LA FUENTE,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_purchase_vat_zero,11040106,IVA EN COMPRAS 0%,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec110502,110501,CREDITO TRIBUTARIO A FAVOR DE LA EMPRESA(I.R.),FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec110503,110502,ANTICIPO DE IMPUESTO A LA RENTA,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec_sale_profit_withhold,110503,RETENCIONES EN LA FUENTE PAGADAS,FALSE,account.data_account_type_current_assets,l10n_ec_ifrs
+ec120105,120101,MUEBLES Y ENSERES,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec120106,120102,MAQUINARIA Y EQUIPO,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec120108,120103,EQUIPO DE COMPUTACION,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec120110,120104,"OTROS PROPIEDADES, PLANTA Y EQUIPO",FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec120111,120105,REPUESTOS Y HERRAMIENTAS,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011201,12010501,DEPRECIACION ACUMULADA EDIFICIOS,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011204,12010502,DEPRECIACION ACUMULADA MUEBLES Y ENSERES,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011205,12010503,DEPRECIACION ACUMULADA MAQUINARIA Y EQUIPO,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011207,12010504,DEPRECIACION ACUMULADA EQUIPO DE COMPUTACION,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011209,12010505,"DEPRECIACION ACUMULADA OTROS PROPIEDADES, PLANTA Y EQUIPO",FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec12011210,12010506,DEPRECIACION ACUMULADA REPUESTOS Y HERRAMIENTAS,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ekec120107,120106,SISTEMA CONTABLE,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ekec12010701,12010601,DEPRE. SISTEMA CONTABLE,FALSE,account.data_account_type_fixed_assets,l10n_ec_ifrs
+ec120706,120107,OTROS ACTIVOS NO CORRIENTES,FALSE,account.data_account_type_non_current_assets,l10n_ec_ifrs
+ec210301,210301,CUENTAS Y DOCUMENTOS POR PAGAR LOCALES,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec210302,210302,CUENTAS Y DOCUMENTOS POR PAGAR DEL EXTERIOR,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec210401,210303,OBLIGACIONES CON INSTITUCIONES FINANCIERAS LOCALES,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec210702,210304,IMPUESTO A LA RENTA POR PAGAR DEL EJERCICIO,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec21070301,21030501,PRESTAMOS QUIROGRAFARIOS,TRUE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec21070302,21030502,PRESTAMOS HIPOTECARIOS,TRUE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec21070303,21030503,APORTACION PATRONAL AL IESS,TRUE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec21070304,21030504,APORTACION PERSONAL AL IESS,TRUE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ekec210405,210306,FONDOS DE RESERVA RETENIDOS A EMPLEADOS,TRUE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec21070306,21070306,OTRAS OBLICACIONES CORRIENTES CON EL IESS,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec21070401,21070401,SUELDOS Y SALARIOS POR PAGAR,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec21070403,21070403,D√âCIMOS POR PAGAR,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec210705,210705,PARTICIPACION TRABAJADORES POR PAGAR DEL EJERCICIO,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec2110,2110,ANTICIPOS DE CLIENTES,TRUE,account.data_account_type_payable,l10n_ec_ifrs
+ec_sale_vat,2114010101,IVA COBRADO EN VENTAS LOCALES,FALSE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec_sale_vat_assets,2114010102,IVA COBRADO EN VENTAS DE ACTIVOS FIJOS,FALSE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec_sale_vat_zero,2114010105,IVA EN VENTAS 0%,FALSE,account.data_account_type_current_liabilities,l10n_ec_ifrs
+ec3101,3101,CAPITAL SUSCRITO o ASIGNADO,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3401,3401,RESERVA LEGAL,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3402,3402,RESERVAS FACULTATIVA Y ESTATUTARIA,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3403,3403,RESERVA DE CAPITAL,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3404,3404,OTRAS RESERVAS,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3601,3601,GANANCIAS ACUMULADAS,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3602,3602,PERDIDAS ACUMULADAS,FALSE,account.data_account_type_equity,l10n_ec_ifrs
+ec3701,3701,RESULTADO NETO DEL PERIODO,FALSE,account.data_unaffected_earnings,l10n_ec_ifrs
+ec410101,410101,VENTA DE BIENES,FALSE,account.data_account_type_revenue,l10n_ec_ifrs
+ec4109,410102,OTROS INGRESOS DE ACTIVIDADES ORDINARIAS,FALSE,account.data_account_type_revenue,l10n_ec_ifrs
+ec4110,410103,#øNOMBRE?,FALSE,account.data_account_type_revenue,l10n_ec_ifrs
+ec4111,410104,#øNOMBRE?,FALSE,account.data_account_type_revenue,l10n_ec_ifrs
+ec42,410105,GANANCIA BRUTA,FALSE,account.data_account_type_revenue,l10n_ec_ifrs
+ekec510101,510101,COSTO DE VENTAS,FALSE,account.data_account_type_direct_costs,l10n_ec_ifrs
+ekec6101,6101,GASTOS ADMINISTRATIVOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520108,610101,MANTENIMIENTO Y REPARACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520109,610102,ARRENDAMIENTO OPERATIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520110,610103,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520111,610104,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520115,610105,TRANSPORTE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520116,610106,"GASTOS DE GESTION (agasajos a accionistas, trabajadores y clientes)",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520117,610107,GASTOS DE VIAJE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52011801,610108,AGUA POTABLE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52011802,610109,ENERGIA ELECTRICA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52011803,610110,TELEFONIA FIJA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52011804,610111,TELEFONIA MOVIL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520120,610112,"IMPUESTOS, CONTRIBUCIONES Y OTROS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5201230104,610113,MUEBLES Y ENSERES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5201230105,610114,MAQUINARIA Y EQUIPO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5201230107,610115,EQUIPO DE COMPUTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5201230109,610116,"OTROS PROPIEDADES, PLANTA Y EQUIPO",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5201230110,610117,REPUESTOS Y HERRAMIENTAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012701,610118,SERVICIO DE IMPRENTA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012702,610119,SUMINISTROS DE OFICINA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012703,610120,SUMINISTROS Y ARTICULOS DE ASEO Y LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012705,610121,"GUIAS, COURIERS, CORREOS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012706,610122,"PEAJES, PARQUEADEROS Y OTROS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012707,610123,"CAPACITACI√ìN, CURSOS Y SEMINARIOS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012708,610124,ALIMENTACI√ìN Y REFRIGERIOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012709,610125,SEGURIDAD Y VIGILANCIA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012710,610126,SERVICIOS DE LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012712,610127,MANTENIMIENTO EQUIPO COMPUTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012713,610128,GASTOS LEGALES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012714,610129,SERVICIOS CONTRATADOS A TERCEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52012715,610130,OTROS GASTOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020101,610131,"SUELDOS, SALARIOS Y DEMAS REMUNERACIONES",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020102,610132,HORAS EXTRA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020103,610133,BONIFICACIONES POR DESEMPE√ëO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020201,610134,APORTE PATRONAL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020202,610135,FONDOS DE RESERVA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020301,610136,DECIMO TERCER SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020302,610137,DECIMO CUARTO SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020303,610138,VACACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020304,610139,DESPICO INTEMPESTIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020305,610140,DESAHUCIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020306,610141,OTROS BENEFICIOS E INDEMNIZACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020401,610142,SEGURO MEDICO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020402,610143,CAPACITACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020403,610144,UNIFORMES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020404,610145,ALIMENTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52020405,610146,OTROS GASTOS DE PLANES DE BENEFICIOS A EMPLEADOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520209,610147,ARRENDAMIENTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520210,610148,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520211,610149,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610150,610150,GND OTROS GASTOS NO DEDUCIBLES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610151,610151,INTERESES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610152,610152,GASTOS DE FINANCIAMIENTO DE ACTIVOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610153,610153,DIFERENCIA EN CAMBIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610154,610154,OTROS GASTOS FINANCIEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610155,610155,PERDIDA EN INVERSIONES EN ASOCIADAS / SUBSIDIARIAS Y OTRAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec6102,6102,GASTOS VENTAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610201,610201,MANTENIMIENTO Y REPARACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610202,610202,ARRENDAMIENTO OPERATIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610203,610203,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610204,610204,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520212,610205,COMBUSTIBLES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520213,610206,LUBRICANTES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520214,610207,SEGUROS Y REASEGUROS (primas y cesiones),FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520215,610208,TRANSPORTE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520216,610209,"GASTOS DE GESTION (agasajos a accionistas, trabajadores y clientes)",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520217,610210,GASTOS DE VIAJE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52021801,610211,AGUA POTABLE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52021802,610212,ENERGIA ELECTRICA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52021803,610213,TELEFONIA FIJA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52021804,610214,TELEFONIA MOVIL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610212,610215,IMPUESTOS, CONTRIBUCIONES Y OTROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202230104,610216,MUEBLES Y ENSERES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202230105,610217,MAQUINARIA Y EQUIPO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202230107,610218,EQUIPO DE COMPUTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202230109,610219,"OTROS PROPIEDADES, PLANTA Y EQUIPO",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202230110,610220,REPUESTOS Y HERRAMIENTAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610218,610221,SERVICIO DE IMPRENTA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022801,610222,SUMINISTROS DE OFICINA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022802,610223,SUMINISTROS Y ART√çCULOS DE ASEO Y LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022804,610224,"GUIAS, COURIERS, CORREOS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022805,610225,"PEAJES, PARQUEADEROS Y OTROS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022806,610226,"CAPACITACI√ìN, CURSOS Y SEMINARIOS",FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022807,610227,ALIMENTACI√ìN Y REFRIGERIOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022808,610228,SEGURIDAD Y VIGILANCIA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022809,610229,SERVICIOS DE LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022811,610230,MANTENIMIENTO EQUIPO COMPUTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022814,610231,GASTOS LEGALES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022815,610232,SERVICIOS CONTRATADOS A TERCEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022816,610233,OTROS GASTOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610231,610234,SUELDOS, SALARIOS Y DEMAS REMUNERACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610232,610235,HORAS EXTRA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610233,610236,BONIFICACIONES POR DESEMPE—O,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610234,610237,APORTE PATRONAL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610235,610238,FONDOS DE RESERVA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610236,610239,DECIMO TERCER SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610237,610240,DECIMO CUARTO SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610238,610241,VACACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610239,610242,DESPICO INTEMPESTIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610240,610243,DESAHUCIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610241,610244,OTROS BENEFICIOS E INDEMNIZACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610242,610245,SEGURO MEDICO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610243,610246,CAPACITACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610244,610247,UNIFORMES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610245,610248,ALIMENTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610246,610249,OTROS GASTOS DE PLANES DE BENEFICIOS A EMPLEADOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610247,610250,ARRENDAMIENTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610248,610251,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610249,610252,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52022817,610253,GND OTROS GASTOS NO DEDUCIBLES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610251,610254,INTERESES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610252,610255,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610253,610256,GASTOS DE FINANCIAMIENTO DE ACTIVOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610254,610257,DIFERENCIA EN CAMBIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610255,610258,OTROS GASTOS FINANCIEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610256,610259,PERDIDA EN INVERSIONES EN ASOCIADAS / SUBSIDIARIAS Y OTRAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec6103,6103,FINANCIEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610301,610301,INTERESES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610302,610302,NO DEDUCIBLES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610303,610303,MANTENIMIENTO Y REPARACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610304,610304,ARRENDAMIENTO OPERATIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610305,610305,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610306,610306,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610307,610307,TRANSPORTE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610308,610308,GASTOS DE GESTION (agasajos a accionistas, trabajadores y clientes),FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610309,610309,GASTOS DE VIAJE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610310,610310,AGUA POTABLE,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610311,610311,ENERGIA ELECTRICA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610312,610312,TELEFONIA FIJA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610313,610313,TELEFONIA MOVIL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610314,610314,IMPUESTOS, CONTRIBUCIONES Y OTROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610315,610315,MUEBLES Y ENSERES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610316,610316,MAQUINARIA Y EQUIPO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610317,610317,EQUIPO DE COMPUTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610318,610318,OTROS PROPIEDADES, PLANTA Y EQUIPO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610319,610319,REPUESTOS Y HERRAMIENTAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610320,610320,SERVICIO DE IMPRENTA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610321,610321,SUMINISTROS DE OFICINA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610322,610322,SUMINISTROS Y ARTICULOS DE ASEO Y LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610323,610323,GUIAS, COURIERS, CORREOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610324,610324,PEAJES, PARQUEADEROS Y OTROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610325,610325,CAPACITACI”N, CURSOS Y SEMINARIOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610326,610326,ALIMENTACI”N Y REFRIGERIOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610327,610327,SEGURIDAD Y VIGILANCIA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610328,610328,SERVICIOS DE LIMPIEZA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610329,610329,MANTENIMIENTO EQUIPO COMPUTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610330,610330,GASTOS LEGALES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610331,610331,SERVICIOS CONTRATADOS A TERCEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610332,610332,OTROS GASTOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610333,610333,SUELDOS, SALARIOS Y DEMAS REMUNERACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610334,610334,HORAS EXTRA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610335,610335,BONIFICACIONES POR DESEMPE—O,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610336,610336,APORTE PATRONAL,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610337,610337,FONDOS DE RESERVA,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610338,610338,DECIMO TERCER SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610339,610339,DECIMO CUARTO SUELDO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610340,610340,VACACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610341,610341,DESPICO INTEMPESTIVO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610342,610342,DESAHUCIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610343,610343,OTROS BENEFICIOS E INDEMNIZACIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610344,610344,SEGURO MEDICO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610345,610345,CAPACITACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610346,610346,UNIFORMES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610347,610347,ALIMENTACION,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610348,610348,OTROS GASTOS DE PLANES DE BENEFICIOS A EMPLEADOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610349,610349,ARRENDAMIENTO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610350,610350,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ekec610351,610351,PROMOCION Y PUBLICIDAD,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec5202281808,610352,GND OTROS GASTOS NO DEDUCIBLES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520301,610353,INTERESES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520302,610354,COMISIONES,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520303,610355,GASTOS DE FINANCIAMIENTO DE ACTIVOS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520304,610356,DIFERENCIA EN CAMBIO,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520305,610357,OTROS GASTOS FINANCIEROS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec520401,610358,PERDIDA EN INVERSIONES EN ASOCIADAS / SUBSIDIARIAS Y OTRAS,FALSE,account.data_account_type_expenses,l10n_ec_ifrs
+ec52040201,610359,OTROS GASTOS,account.data_account_type_expenses,l10n_ec_ifrs
