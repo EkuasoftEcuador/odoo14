@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+      <record id="view_account_retention_out_form" model="ir.ui.view">
+          <field name="name">view.account.retention.form</field>
+          <field name="model">account.retention</field>
+          <field name="arch" type="xml">
+            <form string="Retencion de Impuestos">
+              <header>
+                  <button name="action_cancel" string="Cancelar" type="object" states="draft,posted" class="oe_highlight" groups="account.group_account_invoice"/>
+                  <button name="action_move_client_create" string="Confirmar" type="object" states="draft" class="oe_highlight" groups="account.group_account_invoice"/>
+                  <button name="action_draft" string="Cambiar a borrador" type="object" states="cancel" groups="account.group_account_invoice"/>
+                  <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+              </header>
+              <sheet>
+                <div class="oe_title">
+                  <h1>
+                    <span string="Retención Borrador" attrs="{'invisible': [('state','!=','draft')]}" class="o_form_label"/>
+                    <span string="Retención Generada" attrs="{'invisible': [('state','=','draft')]}" class="o_form_label"/>
+                    <field name="name" class="oe_inline" required="1"/>
+
+                  </h1>
+                </div>
+                <group>
+                  <group>
+                        <field name="partner_id" select="1" required="1"/>
+                        <field name="invoice_id" required="1" domain="[('retention_id','=',False), ('move_type','=','out_invoice')]"/>
+
+                        <field name="date" select="1" string="Fecha Emisión"/>
+                        <field name="l10n_latam_parent_document_type_id" attrs="{'required': 1, 'invisible':[('state','=','draft')]}" />
+                        <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                  </group>
+                  <group>
+                      <field name="ref"/>
+                    <span string="Comprobante" for="type" attrs="{'invisible':[('state','=','draft')]}"/>
+                    <div attrs="{'invisible':[('state','=','draft')]}">
+                      <field name="l10n_latam_parent_document_type_id" class="oe_inline" attrs="{'required':1, 'invisible':[('state','=','draft')]}" />
+                    </div>
+                      <field name="move_client_id" attrs="{'readonly':1, 'invisible':[('state','=','draft')]}"/>
+                  </group>
+                </group>
+                <notebook colspan="4">
+                  <page string="Impuestos">
+                        <field name="tax_client_ids" nolabel="1" editable="botttom">
+                          <tree string="Impuestos Aplicados" editable="botttom">
+                              <field name="fiscal_year"/>
+                              <field name="tax_id" /> <!--domain="[('t','in',['ret_ir','ret_vat_b','ret_vat_srv'])]" -->
+                              <field name="name" readonly="1"/>
+                              <field name="percent" readonly="1"/>
+                            <field name="amount_base"/>
+                            <field name="amount_total" readonly="1"/>
+                          </tree>
+                        </field>
+                        <group class="oe_subtotal_footer oe_right">
+                          <field name="amount_total" widget="monetary" class="oe_subtotal_footer_separator"/>
+                        </group>
+                        <separator string=""/>
+                  </page>
+                </notebook>
+              </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+          </field>
+        </record>
+
+      <record id="view_move_out_withdrawing_tree" model="ir.ui.view">
+            <field name="name">account.retention.withdrawing.tree</field>
+            <field name="model">account.retention</field>
+            <field name="arch" type="xml">
+                <tree string="Retenciones" sample="1">
+                    <field name="name"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="ref" optional="show"/>
+                    <field name="date"/>
+                    <field name="l10n_latam_document_type_id"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                    <field name="amount_total" sum="Total Amount" string="Total" decoration-bf="1"/>
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'posted'"/>
+                </tree>
+            </field>
+        </record>
+
+
+      <record id="view_account_retention_out_search" model="ir.ui.view">
+            <field name="name">account.retention.search</field>
+            <field name="model">account.retention</field>
+            <field name="arch" type="xml">
+                <search string="Retenciones">
+                    <field name="name"/>
+                    <field name="invoice_id"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="date"/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Empresa" name="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Estado" name="state" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Tipo" name="type" domain="[]" context="{'group_by':'type'}"/>
+                        <filter string="Tipo de Comprobante" name="move_type" domain="[]" context="{'group_by':'move_type'}"/>
+                        <filter string="Fecha" name="date" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+     </record>
+
+      <record id="view_move_out_withdrawing_act_window" model="ir.actions.act_window">
+            <field name="name">Retenciones</field>
+            <field name="res_model">account.retention</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="view_move_out_withdrawing_tree"/>
+            <field name="search_view_id" ref="view_account_retention_out_search"/>
+            <field name="domain">[('move_type', '=', 'ret_out_invoice')]</field>
+            <field name="context">{'default_move_type': 'ret_out_invoice'}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+               Registrar un nuevo doocumento de retención.
+              </p>
+            </field>
+        </record>
+
+      <record id="view_account_retention_out_graph" model="ir.ui.view">
+          <field name="name">account.retention.graph</field>
+          <field name="model">account.retention</field>
+          <field name="type">graph</field>
+          <field name="arch" type="xml">
+        <graph string="Documentos de Retenciones" type="bar">
+          <field name="partner_id"/>
+          <field name="amount_total" operator="+"/>
+        </graph>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window.view" id="view_account_retention_tree_menu_client">
+			<field name="sequence" eval="10" />
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_move_out_withdrawing_tree" />
+			<field name="act_window_id" ref="view_move_out_withdrawing_act_window" />
+		</record>
+
+       <record model="ir.actions.act_window.view" id="view_account_retention_form_menu_client">
+			<field name="sequence" eval="20" />
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_account_retention_out_form" />
+			<field name="act_window_id" ref="view_move_out_withdrawing_act_window" />
+		</record>
+
+        <menuitem name="Retenciones" id="menu_finance_out_withdrawing" parent="account.menu_finance_receivables" action="view_move_out_withdrawing_act_window" groups="account.group_account_invoice"/>
+
+    </data>
+</odoo>
