@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_import_liquidation_related_documents_form" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.related.documents.form</field>
+            <field name="model">ek.import.liquidation.related.documents</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="type_doc" required="1"/>
+                                <field name="type" attrs="{'invisible': [('type_doc','!=','others')],'required': [('type_doc','=','others')]}"/>
+                                <field name="partner_id" required="1" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}"/>
+                                <field name="invoice_id" attrs="{'invisible': [('type_doc','=','others')],'required': [('type_doc','=','fiscal')]}" context="{'default_move_type': 'in_invoice', 'move_type': 'in_invoice'}" domain="[('partner_id','=',partner_id),('state','in',('posted','paid')),('move_type','=','in_invoice')]"/>
+                                <field name="apply_by_item" attrs="{'invisible': [('type_doc','in',('interno','generic'))]}"/>
+                            </group>
+                            <group>
+                                <field name="terms_id" attrs="{'invisible': [('apply_by_item','=',True)],'required': [('apply_by_item','=',False)]}" domain="[('type','!=','calculate')]"/>
+                                <field name="name" attrs="{'invisible': [('type_doc','!=','others')],'required': [('type_doc','=','others')]}"/>
+                                <field name="date" attrs="{'invisible': [('type_doc','!=','others')],'required': [('type_doc','=','others')]}"/>
+                                <field name="amount" attrs="{'invisible': [('type_doc','!=','others')],'required': [('type_doc','=','others')]}"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible': [('apply_by_item','=',False)]}">
+                            <page string="Productos">
+                                <field name="lines" nolabel="1" editable="bottom">
+                                    <tree nolabel="1" editable="bottom">
+
+                                        <field name="line_invoice_id" domain="[('move_id','=',parent.invoice_id),('debit','&gt;',0)]" options="{'no_create': True}"/>
+                                        <field name="product_id" on_change="onchange_product_id(product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,context)"/>
+                                        <field name="name"/>
+                                        <field name="product_qty" on_change="onchange_product_id(product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,context)"/>
+                                        <field name="product_uom" groups="product.group_uom" on_change="onchange_product_uom(product_id,product_qty,product_uom,parent.partner_id, parent.date,name,False,context)"/>
+                                        <field name="price_subtotal" string="Total" sum="Valor Total"/>
+                                        <field name="terms_id" required="1" domain="[('type','!=','calculate')]"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ek_import_liquidation_line_form" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.line.form</field>
+            <field name="model">ek.import.liquidation.line</field>
+            <field name="arch" type="xml">
+                <form string="Lineas de Importación">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id" readonly="1" on_change="onchange_product_id(tariff_id,product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,parent.state,context)"/>
+                                <field name="tariff_id" domain="[('type','!=','view')]" required="1"/>
+                                <field name="product_qty" on_change="onchange_product_id(tariff_id,product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,parent.state,context)"/>
+                                <field name="product_uom" readonly="1" groups="product.group_uom" on_change="onchange_product_uom(tariff_id,product_id,product_qty,product_uom,parent.partner_id, parent.date,name,False,parent.state,context)"/>
+                                <field name="product_weight" sum="Peso Total (Kg)"/>
+                                <field name="price_unit" readonly="1"/>
+                                <field name="discount"/>
+                                <field name="price_subtotal" sum="Total FOB"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id" invisible="1" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="account_analytic_id" groups="purchase.group_analytic_accounting"/>
+                                <field name="adv_manual"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Cálculos Totales">
+                                <group>
+                                    <group>
+                                        <field name="share" sum="Total (%)"/>
+                                        <field name="freight_subtotal" sum="Total Felte"/>
+                                        <field name="insurance_subtotal" sum="Total Seguro"/>
+                                        <field name="expenses_abroad" sum="Asumido por Proveedor"/>
+                                        <field name="tariff_subtotal" sum="Total Arancel"/>
+                                    </group>
+                                    <group>
+                                        <field name="expenses_subtotal" sum="Total Gastos"/>
+                                        <field name="amount_total" sum="Total Costo"/>
+                                        <field name="factor" sum="Factor Total"/>
+                                        <field name="unit_cost" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Cálculos Arancelarios">
+                                <field name="tariff_line_ids" readonly="1">
+                                    <tree readonly="1">
+                                        <field name="rule_id"/>
+                                        <field name="terms_id"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Información Adicional">
+                                <group>
+                                    <field name="state" string="Estado"/>
+                                    <field name="purchase_line_id" readonly="1"/>
+                                    <field name="date_planned" string="Fecha Planificada" help="Es la fecha planificada en la que deberia llegar la mercadería"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_liquidation_form" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.form</field>
+            <field name="model">ek.import.liquidation</field>
+            <field name="arch" type="xml">
+                <form string="Liquidación de Importación">
+                <header>
+                    <button name="calculate_liq" states="draft,calculate" string="Calcular" type="object" class="oe_highlight"/>
+                    <button name="purchase_confirm" string="Aprobar liquidación" id="draft_confirm" type="object" attrs="{'invisible': ['|',('type','!=','liquidation'),('state','!=','calculate')]}"/>
+
+                    <button name="action_picking_create" type="object"  string="Confirmar liquidación" class="oe_highlight" groups="purchase.group_purchase_manager" attrs="{'invisible': ['|',('type','!=','liquidation'),('state','!=','approved')]}"/>
+                    <button name="action_convert_liquidation" type="object"  string="Convertir en liquidación" class="oe_highlight" attrs="{'invisible': ['|',('type','=','liquidation'),('state','!=','calculate')]}"/>
+                    <button name="action_cancel_draft" states="cancel,calculate,sent,confirmed" string="Volver a Borrador" type="object" />
+                    <button name="action_cancel_draft" attrs="{'invisible':['|',('shipment_count_not_cancel','>',0),('state','!=','done')]}" string="Volver a Borrador" type="object" />
+                    <button name="action_cancel" states="draft,calculate,confirmed,sent,bid,approved,except_picking,except_invoice" string="Cancelar" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,bid,approved,done" statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
+                </header>
+                <sheet>
+                   <div class="oe_button_box" name="buttons">
+                        <button name="view_picking" type="object"
+                            class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('shipment_count', '=', 0)]}">
+                            <div class="o_stat_info">
+                                <field name="shipment_count" widget="statinfo" string="Recepciones"/>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Simulación de Importación" attrs="{'invisible': [('type','=','liquidation')]}" for="type"/>
+                            <label string="Liquidación de Importación" attrs="{'invisible': [('type','!=','liquidation')]}" for="type"/>
+                            <field name="name" class="oe_inline" readonly="1"/>
+                            <field name="shipment_count_not_cancel" class="oe_inline" invisible="1"/>
+
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="partner_id" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}"/>  <!--domain="[('supplier','=',True)]"-->
+                             <field name="country_id"/>
+                            <field name="purchase_id" domain="[('partner_id','=',partner_id), ('is_import','=',True),('state','in',['purchase','done'])]" attrs="{'invisible': [('type','!=','liquidation')], 'required': [('type','=','liquidation')]}"/>
+                            <field name="purchase_id" domain="[('partner_id','=',partner_id), ('is_import','=',True),('state','in',['purchase','done'])]" attrs="{'invisible': [('type','=','liquidation')], 'required': [('type','!=','liquidation')]}"/>
+                            <field name="purchase_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('state','in',['approved','confirmed']),('id','!=',purchase_id), ('is_import','=',True)]"/>
+                            <field name="incoterm_id" required="1" on_change="onchange_incoterm_id(incoterm_id, context)" />
+
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="origin"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="picking_type_id" on_change="onchange_picking_type_id(picking_type_id, context)" domain="[('code','=','incoming')]" options="{'no_create': True}" groups="stock.group_locations"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Productos">
+                            <group col="4" >
+                                <button icon="fa-repeat" string="Actualizar" name="button_uptade" states="draft,calculate" type="object" help='Carga nuevamente los elementos de las ordenes de compras seleccionadas' class="oe_link oe_stat_button oe_right"
+                                groups="ek_purchase_import_liquidation.group_admin_purchase_import_liquidation" />
+                            </group>
+                            <field name="order_line">
+                                <tree string="Líneas de liquidación de importación" colors="red:invoice_id == False;black:state == 'done'">
+                                    <field name="product_id" on_change="onchange_product_id(tariff_id,product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,parent.state,context)"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="tariff_id" domain="[('type','!=','view')]" required="1"/>
+                                    <field name="company_id" invisible="1" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="account_analytic_id" groups="purchase.group_analytic_accounting" /> <!--domain="[('type','not in',('view','template'))]"-->
+                                    <field name="product_qty" sum="Cantidad Total" on_change="onchange_product_id(tariff_id,product_id,product_qty,product_uom,parent.partner_id,parent.date,name,False,parent.state,context)"/>
+                                    <field name="product_uom" groups="product.group_uom" on_change="onchange_product_uom(tariff_id,product_id,product_qty,product_uom,parent.partner_id, parent.date,name,False,parent.state,context)"/>
+                                    <field name="product_weight" sum="Peso Total (Kg)"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal" sum="Total FOB"/>
+                                    <field name="share" sum="Total (%)"/>
+                                    <field name="freight_subtotal" sum="Total Felte"/>
+                                    <field name="insurance_subtotal" sum="Total Seguro"/>
+                                    <field name="tariff_subtotal" sum="Total Arancel"/>
+                                    <field name="expenses_subtotal" sum="Total Gastos"/>
+                                    <field name="amount_total" sum="Total Costo"/>
+                                    <field name="factor" sum="Factor Total"/>
+                                    <field name="unit_cost" />
+                                    <field name="state" invisible="1"/>
+                                    <field name="purchase_line_id" invisible="1"/>
+                                    <field name="origin" invisible="1"/>
+                                    <field name="invoice_id" invisible="1"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <group string="Precio CIF,Ajuste de Valores y Otros.">
+                                    <field name="breakdown_expenses_ids" nolabel="1">
+                                        <tree editable="bottom" nolabel="1">
+                                            <field name="terms_id" attrs="{'readonly': [('manual','=',False)]}"/>
+                                            <field name="code" readonly="1"/>
+                                            <field name="amount" sum="Total de Gastos" attrs="{'readonly': [('manual','=',False)]}"/>
+                                            <field name="type" readonly="1"/>
+                                            <field name="manual" invisible="1"/>
+                                            <field name="is_considered_total" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" name="sale_total">
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_fob" />
+                                        <div class="oe_clear"/>
+                                    </div>
+                                    <field name="amount_fob" nolabel="1" class="oe_subtotal_footer_separator" readonly="1"  widget='monetary'/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" />
+                                        <div class="oe_clear"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" readonly="1"  widget='monetary'/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="factor" />
+                                        <div class="oe_clear"/>
+                                    </div>
+                                    <field name="factor" nolabel="1" class="oe_subtotal_footer_separator" readonly="1" />
+                                </group>
+                            </group>
+
+                            <div class="oe_clear"/>
+                            <field name="notes" class="oe_inline" placeholder="Términos y Condiciones..."/>
+                        </page>
+                        <page string="Documentos Relacionados">
+                            <group col="4" >
+                                <button icon="fa-repeat" string="Importar Documentos Relacionados" name="import_related_documents" type="object" states="draft,calculate"  help='Permite importar los documentos generados desde contabilidad y que han sido asociados a esta importación' class="oe_link oe_stat_button oe_right"/>
+                            </group>
+                            <field name="related_documents_ids" nolabel="1">
+                                <tree string="Documentos Relacionados" nolabel="1">
+                                        <field name="partner_id"/>
+                                        <field name="type_doc"/>
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="terms_id"/>
+                                        <field name="amount" sum="Total"/>
+                                    </tree>
+                            </field>
+                        </page>
+                        <page string="Facturas">
+                            <group col="4" >
+                                <button icon="fa-repeat" string="Generar Factura" name="%(action_ek_import_generate_invoice_wizard)d" type="action" groups="ek_purchase_import_liquidation.group_admin_purchase_import_liquidation" states="draft,calculate"  help='Pemite generar facturas de los items contenidos en una importación' class="oe_link oe_stat_button oe_right"/>
+                            </group>
+                            <group>
+                                <field name="invoice_ids" readonly="1" nolabel="1">
+                                    <tree nolabel="1">
+                                        <field name="partner_id"/>
+                                        <field name="date"/>
+                                        <field name="name"/>
+                                        <field name="amount_total" sum="Total"/>
+                                        <field name="state"/>
+                                        <!--<button name="action_confirm"
+                                                    type="object"
+                                                    attrs="{'invisible':[('state','!=', 'draft')]}"
+                                                    icon="fa-check-circle"
+                                                    help="Validar Factura"/>
+                                        <button name="action_cancel"
+                                                    type="object"
+                                                    attrs="{'invisible':[('state','=', 'cancel')]}"
+                                                    icon="fa-ban"
+                                                    help="Anular Factura"/>-->
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <!--<page string="Guías de Remisión">
+                            <field name="remision_guide_ids" nolabel="1" domain="[('in_type','=','gui_in_invoice'),('state','=','done')]" colspan="4"/>
+                        </page>-->
+                        <page string="Información Adicional">
+                            <group>
+                                <group>
+                                    <field name="type" invisible="1"/>
+                                    <field name="location_id" on_change="onchange_location_id(location_id, context)"/>
+                                    <field name="percent_pvp_mayor" />
+                                    <field name="percent_pvp_minor" />
+                                </group>
+                                <group>
+                                    <field name="validator" groups="base.group_no_one"/>
+                                    <field name="date_approve" groups="base.group_no_one"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_import_liquidation_filter" model="ir.ui.view">
+            <field name="name">import.liquidation.select</field>
+            <field name="model">ek.import.liquidation</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                    <field name="name" string="Referencia"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="create_uid"/>
+
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Proveedor" name="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Fecha" name="terp-go-date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Estado" name="terp-go-state" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="ek_import_liquidation_related_documents_tree" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.related.documents.tree</field>
+            <field name="model">ek.import.liquidation.related.documents</field>
+            <field name="arch" type="xml">
+                <tree string="Documentos Relacionados">
+                    <field name="partner_id"/>
+                    <field name="type_doc"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="terms_id"/>
+                    <field name="amount" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="view_import_liquidation_tree" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.tree</field>
+            <field name="model">ek.import.liquidation</field>
+            <field name="arch" type="xml">
+                <tree string="Liquidación de Importación"> <!--fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state in ('wait','confirmed');red:state in ('except_invoice','except_picking')" -->
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Referencia"/>
+                    <field name="date" />
+                    <field name="partner_id"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    <field name="origin"/>
+                    <field name="amount_total" sum="Total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="import_liquidation_rfq_action" model="ir.actions.act_window">
+            <field name="name">Simulación de Liquidación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ek.import.liquidation</field>
+            <field name="context">{'default_type':'simulation'}</field>
+            <field name="domain">[('type','=','simulation')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_import_liquidation_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Haga clic para crear una liquidación de importanción.
+              </p><p>
+                Use este menú para buscar dentro de sus liquidaciones de importanción referencias, proveedor, productos, etc. Para cada liquidación, puede rastrear los documentos relacionados con el proveedor, controlar los productos recibidos y controlan las facturas del proveedor.
+              </p>
+            </field>
+        </record>
+        <menuitem action="import_liquidation_rfq_action" id="menu_import_liquidation_rfq"
+            parent="menu_import_root"
+            sequence="0"/>
+
+        <record id="import_liquidation_action" model="ir.actions.act_window">
+            <field name="name">Liquidación de Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ek.import.liquidation</field>
+            <field name="context">{'default_type':'liquidation'}</field>
+            <field name="domain">[('type','=','liquidation')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_import_liquidation_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Haga clic para crear una liquidación de importanción.
+              </p><p>
+                Use este menú para buscar dentro de sus liquidaciones de importanción referencias, proveedor, productos, etc. Para cada liquidación, puede rastrear los documentos relacionados con el proveedor, controlar los productos recibidos y controlan las facturas del proveedor.
+              </p>
+            </field>
+        </record>
+        <menuitem action="import_liquidation_action" id="menu_import_liquidation"
+            parent="menu_import_root"
+            sequence="1"/>
+
+        <!--TODO LINEAS DE LIQUIDACION-->
+        <record id="view_import_liquidation_line_tree" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.line.tree</field>
+            <field name="model">ek.import.liquidation.line</field>
+            <field name="arch" type="xml">
+                <tree string="Líneas de liquidación de importación" create="false" delete="false"   editable="bottom" >
+                    <field name="product_id" readonly="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="order_id" invisible="1"/>
+                    <field name="tariff_id" domain="[('type','!=','view')]" invisible="1" readonly="1"/>
+                    <field name="company_id" invisible="1" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="account_analytic_id" invisible="1"  readonly="1" groups="purchase.group_analytic_accounting"/> <!-- domain="[('type','not in',('view','template'))]"-->
+                    <field name="product_qty" readonly="1" sum="Cantidad Total"/>
+                    <field name="product_uom" invisible="1"  readonly="1" groups="product.group_uom"/>
+                    <field name="product_weight" readonly="1" sum="Peso Total (Kg)"/>
+                    <field name="price_unit" readonly="1"/>
+                    <field name="price_subtotal" readonly="1" sum="Total FOB"/>
+                    <field name="share" readonly="1"/>
+                    <field name="freight_subtotal" readonly="1" sum="Total Felte"/>
+                    <field name="insurance_subtotal" readonly="1" sum="Total Seguro"/>
+                    <field name="tariff_subtotal" readonly="1" sum="Total Arancel"/>
+                    <field name="expenses_subtotal" readonly="1" sum="Total Gastos"/>
+                    <field name="amount_total" readonly="1" sum="Total Costo"/>
+                    <field name="factor" readonly="1"/>
+                    <field name="unit_cost" readonly="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="purchase_line_id" invisible="1"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="invoice_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+          <act_window name="Asignar a Factura"
+            id="value_action_ek_import_generate_invoice_add"
+            res_model="ek.asigned.remove.invoice"
+            binding_model="ek.import.liquidation.line"
+            binding_views="form"
+            view_mode="form"
+            target="new"
+        />
+
+        <act_window name="Eliminar de Factura"
+            id="value_action_ek_import_generate_invoice_del"
+            res_model="ek.asigned.remove.invoice"
+            binding_model="ek.import.liquidation.line"
+            binding_views="form"
+            view_mode="form"
+            target="new"
+        />
+
+        <record id="hr_expense_submit_action_server" model="ir.actions.server">
+            <field name="name">Expense: Submit To Manager</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_ek_asigned_remove_invoice"/>
+            <field name="binding_model_id" ref="model_ek_import_liquidation_line"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    env['ek.asigned.remove.invoice'].browse(env.context['active_id']).open_wizard()
+            </field>
+        </record>
+ <!--
+         <act_window
+            name="Asignar a Factura"
+            res_model="ek.asigned.remove.invoice"
+            binding_model="ek.import.liquidation.line"
+            view_mode="form"
+            target="new"
+            context="{'default_type':'add'}"
+            key2="client_action_multi"
+            id="value_action_ek_import_generate_invoice_new"/>
+
+        <act_window
+            name="Eliminar de Factura"
+            res_model="ek.asigned.remove.invoice"
+            src_model="ek.import.liquidation.line"
+            view_mode="form"
+            target="new"
+            context="{'default_type':'del'}"
+            key2="client_action_multi"
+            id="value_action_ek_import_generate_invoice_del"/>
+
+           -->
+        <record id="view_import_liquidation_line_search" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.line.search</field>
+            <field name="model">ek.import.liquidation.line</field>
+            <field name="arch" type="xml">
+                <search string="Partidas">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('product_id','ilike',self)]" string="Descripción"/>
+                    <field name="product_id"/>
+                    <field name="order_id"/>
+                    <field name="tariff_id"/>
+                    <field name="purchase_line_id"/>
+                    <field name="origin"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Producto" name="terp-folder-product" domain="" context="{'group_by':'product_id'}"/>
+                        <filter string="Importación" name="import" context="{'group_by':'order_id'}"/>
+                        <filter string="Partida" name="terp-folder-tariff" domain="" context="{'group_by':'tariff_id'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_import_liquidation_line_graph" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.line.graph</field>
+            <field name="model">ek.import.liquidation.line</field>
+            <field name="arch" type="xml">
+                <graph string="Lineas de Importacion" stacked="True" sample="1">
+                     <field name="product_id"/>
+                    <field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_import_liquidation_line_graph_pivot" model="ir.ui.view">
+            <field name="name">ek.import.liquidation.line.pivot</field>
+            <field name="model">ek.import.liquidation.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Lineas de Importacion" sample="1">
+                    <field name="order_id" type="row"/>
+                    <field name="price_subtotal" type="measure"/>
+                    <field name="share" type="measure"/>
+                    <field name="freight_subtotal" type="measure"/>
+                    <field name="insurance_subtotal" type="measure"/>
+                    <field name="tariff_subtotal" type="measure"/>
+                    <field name="expenses_subtotal" type="measure"/>
+                    <field name="amount_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+
+         <record id="import_liquidation_line_action" model="ir.actions.act_window">
+            <field name="name">Lineas de Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ek.import.liquidation.line</field>
+            <field name="context">{'default_type':'liquidation'}</field>
+            <field name="view_mode">tree,pivot,graph</field>
+            <field name="search_view_id" ref="view_import_liquidation_line_search"/>
+            <field name="view_id" ref="view_import_liquidation_line_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Haga clic para crear una liquidación de importanción.
+              </p><p>
+                Use este menú para buscar dentro de sus liquidaciones de importanción referencias, proveedor, productos, etc. Para cada liquidación, puede rastrear los documentos relacionados con el proveedor, controlar los productos recibidos y controlan las facturas del proveedor.
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_import_liquidation_analytic" name="Análisis"
+            parent="menu_import_root"
+            sequence="10"/>
+
+        <menuitem action="import_liquidation_line_action" id="menu_import_liquidation_line"
+            parent="menu_import_liquidation_analytic"
+            sequence="10"/>
+
+        <!--TODO LINEAS DE ORDENES DE COMPRAS PENDIENTES DE IMPORTACION-->
+
+        <record id="view_purchase_order_line_tree" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Líneas de Orden de Compra" create="false" edit="false" delete="false">
+                    <field name="order_id" string="Orden"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="date_order"/>
+                    <field name="company_id" invisible="1" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="product_qty" sum="Cantidad Total"/>
+                    <field name="ctdad_imported" sum="Total Ctdad. Importada"/>
+                    <field name="ctdad_pending" sum="Total Ctdad. Pendiente"/>
+                    <field name="product_uom" groups="product.group_uom"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal" sum="Total"/>
+                    <field name="is_import" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_line_search" model="ir.ui.view">
+            <field name="name">purchase.order.line.search</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Orden de Compra">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('product_id','ilike',self)]" string="Descripción"/>
+                    <field name="order_id"/>
+                    <field name="partner_id"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Producto" name="terp-folder-product" domain="" context="{'group_by':'product_id'}"/>
+                        <filter string="Orden de Compra" name="import" context="{'group_by':'order_id'}"/>
+                        <filter string="Proveedor" name="terp-folder-partner" domain="" context="{'group_by':'partner_id'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_purchase_order_line_graph" model="ir.ui.view">
+            <field name="name">purchase.order.line.graph</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <graph string="Lineas de Orden de Compra" stacked="True">
+                    <field name="order_id" type="row"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="ctdad_imported" type="measure"/>
+                    <field name="ctdad_pending" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_line_pivot" model="ir.ui.view">
+            <field name="name">purchase.order.line.pivot</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Lineas de Importacion" sample="1">
+                    <field name="order_id" type="row"/>
+                    <field name="product_id" type="row"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="ctdad_imported" type="measure"/>
+                    <field name="ctdad_pending" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+         <record id="purchase_order_line_action" model="ir.actions.act_window">
+            <field name="name">Pendientes de Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+             <field name="domain">[('product_id','!=',False),('is_import','=',True),('ctdad_pending','>',0),('state','!=','cancel')]</field>
+            <field name="view_mode">tree,pivot,graph</field>
+            <field name="search_view_id" ref="view_purchase_order_line_search"/>
+            <field name="view_id" ref="view_purchase_order_line_tree"/>
+        </record>
+        <menuitem action="purchase_order_line_action" id="menu_purchase_order_line"
+            parent="menu_import_liquidation_analytic"
+            sequence="11"/>
+
+    </data>
+</openerp>

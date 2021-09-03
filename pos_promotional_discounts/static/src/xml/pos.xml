@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+    <t t-name="Chrome" t-inherit="point_of_sale.Chrome" t-inherit-mode="extension" owl="1">
+        <xpath expr="//img[hasclass('pos-logo')]" position="after">
+            <div class="apply_promotions" t-on-click="click_apply_promotions" style="float: right;height: 90%;width: 0%;">
+                <i class="fa fa-gift fa-4x" style="color: #6EC89B;" aria-hidden="true"></i>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[hasclass('info-list')]" position="inside">
+            <t t-if='props.line.is_discount_product'>
+                <li>
+                    <span style="color: #fff;font-size: 13px;line-height: 13px;background: none repeat scroll 0% 0% #7f82ac;
+                        padding: 0px 6px;border-radius: 21px;margin:1px;">
+                        Order Discount
+                    </span>
+                </li>
+            </t>
+            <t t-if='props.line.is_buy_x_get_y_product || props.line.is_buy_x_get_y__qty_product'>
+                <li>
+                    <span style="color: #fff;font-size: 13px;line-height: 13px;background: none repeat scroll 0% 0% #7f82ac;
+                        padding: 0px 6px;border-radius: 21px;margin:1px;">
+                        <t t-if="!props.line.related_product_id">
+                            Free Product
+                        </t>
+                        <t t-if="props.line.related_product_id">
+                            Free Product of <t t-esc="env.pos.db.product_by_id[props.line.related_product_id].display_name"/>
+                        </t>
+                    </span>
+                </li>
+            </t>
+            <t t-if='props.line.is_discounted_product || props.line.is_buy_x_get_discount_on_y'>
+                <li>
+                    <span style="color: #fff;font-size: 13px;line-height: 13px;background: none repeat scroll 0% 0% #7f82ac;
+                        padding: 0px 6px;border-radius: 21px;margin:1px;">
+                        Discounted Product
+                    </span>
+                </li>
+            </t>
+            <t t-if="props.line.check_if_offer_can_be_applied()">
+                <div>
+                    <i class="fa fa-gift show_promotions" style="color: tomato;font-size: 18px;" aria-hidden="true"></i>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-name="OfferDetails">
+        <div id='info_tooltip' class='product_info_div' style="position: absolute;display: none;z-index: 1;height: auto;
+            width: 250px;font-weight: bold;background-color: grey;border: 1px #ffffff solid;color: #efefef;opacity: 0.85;">
+            <img class='cross_img_top close_button' style="margin-left:-90%; width:8%;" src='/pos_promotional_discounts/static/src/js/icon-cross.png'/>
+            <h2 style="margin-top: 0%;margin-bottom: 1%;">Available Offers</h2>
+            <div class="inner_div" style="position:relative; margin: 3%; margin-top: 0% !important; border-top: 1px solid aliceblue;">
+                <div>
+                    <t t-foreach="offers" t-as="offer">
+                        <div style="margin: 5%;">
+                            <t t-if="offer.discount_product_id">
+                                <t t-if="offer.offer_name">
+                                    <t t-esc="offer.offer_name"/>
+                                </t>
+                                <t t-if="!offer.offer_name">
+                                    <t t-esc="offer.discount_product_id[1]"/>
+                                </t>
+                            </t>
+                            <t t-if="offer.buy_x_get_y_id">
+                                <t t-if="offer.offer_name">
+                                    <t t-esc="offer.offer_name"/>
+                                </t>
+                                <t t-if="!offer.offer_name">
+                                    <t t-esc="offer.buy_x_get_y_id[1]"/>
+                                </t>
+                            </t>
+                            <t t-if="offer.buy_x_get_y_qty_id">
+                                <t t-if="offer.offer_name">
+                                    <t t-esc="offer.offer_name"/>
+                                </t>
+                                <t t-if="!offer.offer_name">
+                                    <t t-esc="offer.buy_x_get_y_qty_id[1]"/>
+                                </t>
+                            </t>
+                            <t t-if="offer.buy_x_get_discount_on_y_id">
+                                <t t-if="offer.offer_name">
+                                    <t t-esc="offer.offer_name"/>
+                                </t>
+                                <t t-if="!offer.offer_name">
+                                    <t t-esc="offer.buy_x_get_discount_on_y_id[1]"/>
+                                </t>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <img class='cross_img_bottom close_button' src='/pos_promotional_discounts/static/src/js/icon-cross.png'/>
+        </div>
+    </t>
+
+    <t t-name="WrappedProductNameLines" t-inherit="point_of_sale.WrappedProductNameLines" t-inherit-mode="extension" owl="1">
+		<xpath expr="span" position="inside"> 
+            <t t-if="props.line.data">
+                <t t-set='wk_offer_tag_val' t-value='props.line.data'/>
+                <t t-if='wk_offer_tag_val'>
+                    <div class="pos-disc-font">
+                        <t t-esc="wk_offer_tag_val"/>
+                    </div>
+                </t>
+            </t>
+		</xpath>
+    </t>
+</templates>

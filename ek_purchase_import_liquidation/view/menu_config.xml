@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_import_root" name="Importaciones"
+            parent="purchase.menu_purchase_root" sequence="3" />
+
+        <menuitem
+            id="menu_liquidation_in_config" name="Importaciones"
+            parent="purchase.menu_purchase_config" sequence="30" groups="purchase.group_purchase_manager"/>
+
+    </data>
+</openerp>

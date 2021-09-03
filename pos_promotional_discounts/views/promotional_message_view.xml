@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="pos_promo_message_view">
+			<field name="name">pos.promotions</field>
+			<field name="model">pos.promotions</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml" >
+				<form string="Promo Message">
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+								<field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+							</button>
+						</div>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name= "pos_ids" widget="many2many_tags"/>
+							</group>
+							<group>
+								<label for="criteria_type" string="Type of Criteria"/>
+								<div>
+									<field name="criteria_type"/>
+									<span  style="color:#939393" attrs="{'invisible':[('criteria_type','!=','every_new_customer')]}">
+										This criterion is for first order of customer
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('criteria_type','!=','every_x_order')]}">
+										This criterion is for every X order, per POS session.
+                                		Example: Every 5th order that is printed will have a survey invitation.
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('criteria_type','!=','first_x_customer')]}">
+										This criterion is for first X customers, per POS session, who bought anything from your store.
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('criteria_type','!=','specific_items')]}">
+										This criterion is when any product from the selected products is purchased.
+									</span>
+									<span style="color:#939393" attrs="{'invisible':[('criteria_type','!=','specific_categ')]}">
+										This criterion is applied when an item is purchased from selected categories.
+									</span>
+									<span style="color:#939393" attrs="{'invisible':[('criteria_type','!=','every_order')]}">
+										This criterion is for every order.
+									</span>
+									<span style="color:#939393" attrs="{'invisible':[('criteria_type','!=','based_specific_date')]}">
+										This criterion is based on specific date. For Example:- Christmas
+									</span>
+								</div>
+								<field name="no_of_customers" attrs="{'invisible':[('criteria_type','!=','first_x_customer')]}"/>
+								<field name="order_number" attrs="{'invisible':[('criteria_type','!=','every_x_order')]}"/>
+								<field name="pos_categ_ids" widget="many2many_tags" attrs="{'invisible':[('criteria_type','!=','specific_categ')]}"/>
+								<label for="wk_day" string="Day &amp; Month (DD/MM)" attrs="{'invisible':[('criteria_type','!=','based_specific_date')]}"/>
+								<div class="oe_subtotal_footer_separator oe_inline" attrs="{'invisible':[('criteria_type','!=','based_specific_date')]}">
+									<field name="wk_day" style="width:75px" placeholder="Day"/><span> / </span>
+									<field name= "wk_month" style="width:100px" placeholder="Month"/>
+								</div>
+								<!-- <field name="wk_offer_day" attrs="{'invisible':[('criteria_type','!=','specific_day')]}"/> -->
+							</group>
+						</group>
+						<group>
+							<label for="offer_type" string="Offer Type"/>
+								<div>
+									<field name="offer_type"/>
+									<span  style="color:#939393" attrs="{'invisible':[('offer_type','!=','discount_on_products')]}">
+										This offer is for applying Discount on Products.
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('offer_type','!=','buy_x_get_y')]}">
+										If a Customer buys a specific Quantity of Product then, a Free Product will be given.
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('offer_type','!=','buy_x_get_y_qty')]}">
+										If a Customer buys a specific Quantity of Product then, a specific quantity of Free Product.
+									</span>
+									<span  style="color:#939393" attrs="{'invisible':[('offer_type','!=','buy_x_get_discount_on_y')]}">
+										If a User Buys a specific Quantity of Product, then a Discount will be given on Other Product.
+									</span>
+									<span style="color:#939393" attrs="{'invisible':[('offer_type','!=','get_x_discount_on_sale_total')]}">
+										Discount will be Given Based on the Total Sale Amount.
+									</span>
+								</div>
+						</group>
+						<notebook id="pos_promo_messages" attrs="{'invisible':[('criteria_type','!=','specific_items')]}">
+							<page string="Products">
+								<field name="product_tmplt_ids" >
+									<tree string="tree seesion">
+										<field name="name"/>
+										<field name="type"/>										
+										<field name="pos_categ_id"/>
+										<field name="qty_available"/>
+										<field name="list_price"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<notebook id="discounted_ids" attrs="{'invisible':[('offer_type','!=','discount_on_products')]}">
+							<page string="Discount Items">
+								<field name="discounted_ids" >
+									<tree string="Discount Items">
+                                        <field name="name"/>
+                                        <field name='apply_on' required="1" />
+                                        <field name='discount'/>
+                                    </tree>
+                                    <form string="Discount Items">
+                                        <group colspan='2'>
+                                            <group>
+                                                <field name='apply_on' required="1" widget="radio"/>
+                                                <field name="categ_id" attrs="{
+                                                    'invisible':[('apply_on', '!=', '2_categories')],
+                                                    'required':[('apply_on', '=', '2_categories')]}"/>
+                                                <field name="product_id" attrs="{
+                                                    'invisible':[('apply_on', '!=', '1_products')],
+                                                    'required':[('apply_on', '=', '1_products')]}"/>
+                                            </group>
+                                        </group>
+                                        <group string="Discount Computation">
+                                            <group colspan='2'>
+                                                <group> 
+                                                        <field name='currency_id' invisible='1'/>
+                                                        <label for="percent_discount"/>
+                                                        <div>
+                                                            <field name="percent_discount"
+                                                                class="oe_inline"/>
+                                                            %%
+                                                        </div>
+                                                </group>
+                                            </group>
+                                        </group>
+                                    </form>
+								</field>
+							</page>
+						</notebook>
+						<notebook id="buy_x_get_y"  attrs="{'invisible':[('offer_type','!=','buy_x_get_y')]}">
+							<page string="Buy X Get Y">
+								<field name="buy_x_get_y_ids" >
+									<form string="Buy X Get Y">
+										<group>
+											<group>
+												<field name="product_x_id"/>
+												<field name="qty_x"/>
+											</group>
+											<group>
+												<field name="product_y_id"/>
+											</group>	
+										</group>
+									</form>
+									<tree string="tree seesion" editable="bottom" default_order="id desc">
+										<field name="product_x_id"/>
+										<field name="qty_x"/>										
+										<field name="product_y_id"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<notebook id="buy_x_get_y_qty"  attrs="{'invisible':[('offer_type','!=','buy_x_get_y_qty')]}">
+							<page string="Buy X Get Y Qty">
+								<field name="buy_x_get_y_qty_ids" >
+									<form string="Buy X Get Y Qty">
+										<group>
+											<group>
+												<field name="product_x_id"/>
+												<field name="qty_x"/>
+											</group>
+											<group>
+												<field name="product_y_id"/>
+												<field name="qty_y"/>
+											</group>	
+										</group>
+									</form>
+									<tree string="tree seesion" editable="bottom" default_order="id desc">
+										<field name="product_x_id"/>
+										<field name="qty_x"/>										
+										<field name="product_y_id"/>
+										<field name="qty_y"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<notebook id="buy_x_get_discount_on_y"  attrs="{'invisible':[('offer_type','!=','buy_x_get_discount_on_y')]}">
+							<page string="Buy X Get Discount On Y">
+								<field name="buy_x_get_discount_on_y_ids" >
+									<form string="Buy X Get Discount On Y">
+										<group>
+											<group>
+												<field name="product_x_id"/>
+												<field name="qty_x"/>
+											</group>
+											<group>
+												<field name="product_y_id"/>
+												<field name="discount"/>
+											</group>	
+										</group>
+									</form>
+									<tree string="tree seesion" editable="bottom" default_order="id desc">
+										<field name="product_x_id"/>
+										<field name="qty_x"/>										
+										<field name="product_y_id"/>
+										<field name="discount"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<notebook id="disocunt_sale_total"  attrs="{'invisible':[('offer_type','!=','get_x_discount_on_sale_total')]}">
+							<page string="Discount Rules">
+								<group>
+									<field name="discount_product_id"/>
+								</group>
+								<field name="discount_sale_total_ids" >
+									<form string="Discount Rules">
+										<group>
+											<group>
+												<field name="min_amount"/>
+												<field name="max_amount"/>
+											</group>
+											<group>
+												<field name="discount" string="Discount %"/>
+											</group>	
+										</group>
+									</form>
+									<tree string="tree seesion" editable="bottom">
+										<field name="min_amount"/>
+										<field name="max_amount"/>
+										<field name="discount"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="pos_promo_inherit_product_template_view">
+			<field name="name">product.template.inherit.form</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="point_of_sale.product_template_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='to_weight']" position="after">
+						<field name="wk_promo_messages"  widget="many2many_tags" attrs="{'invisible': [('available_in_pos', '=', False)]}"/>
+				</xpath>
+			</field>
+    	</record>
+
+		<record id="pos_promo_inherit_pos_catef_form" model="ir.ui.view">
+			<field name="name">promo.inherit.pos.category.form</field>
+			<field name="model">pos.category</field>
+			<field name="inherit_id" ref="point_of_sale.product_pos_category_form_view" />
+			<field name="arch" type="xml">
+				<field name="sequence" position="after">
+					<field name="wk_promo_messages" widget="many2many_tags"/>
+					<p class="oe_grey">(These promo messages will be shown in receipt if customer purchased product under this category on your POS)</p>
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="pos_order_promotion_tree_view">
+			<field name="name">pos.promotions</field>
+			<field name="model">pos.promotions</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml" >
+				<tree string="Promotions">
+					<field name="sequence" widget="handle"/>
+					<field name="name"/>
+					<field name= "criteria_type"/>
+					<field name="offer_type"/>
+					<field name="pos_ids" widget="many2many_tags"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id='pos_promo_message_view_action'>
+			<field name="name">Promotions</field>
+			<field name="res_model">pos.promotions</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	    <menuitem name="Promotions" id="menu_pos_promo_message" parent="point_of_sale.menu_point_config_product" action="pos_promotional_discounts.pos_promo_message_view_action"/>
+	</data>
+</odoo>

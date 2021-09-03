@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_ek_import_generate_order_wizard" model="ir.ui.view">
+            <field name="name">ek.import.generate.order.wizard</field>
+            <field name="model">ek.import.generate.order</field>
+            <field name="arch" type="xml">
+                <form string="Asignar lineas a liquiacion">
+                    <group string="Productos a Importar">
+                        <field name="liq_id" domain="[('type','=','liquidation'),('state','in',['draft','calculate'])]"/>
+                        <field name="collection_ids" options="{'no_create':True}" nolabel="1" col="4" colspan="4">
+                            <tree editable="bottom">
+                                <field name="purchase_order_id" readonly="1"/>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="line_id" readonly="1"/>
+                                <field name="product_qty" sum="Total de Productos"/>
+                                <field name="product_qty_import" sum="Total a Importar"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <hr/>
+                        <field name="asigned_to_invoice" colspan="4"/>
+                        <field colspan="4" name="invoice_id" attrs="{'invisible':[('asigned_to_invoice','=',False)],'required':[('asigned_to_invoice','=',True)]}"/>
+                        <div colspan="4" attrs="{'invisible':[('asigned_to_invoice','=',False)]}">
+                            <h3 class="oe_grey">Notas</h3>
+                        </div>
+                        <ul class="oe_grey" colspan="4" attrs="{'invisible':[('asigned_to_invoice','=',False)]}">
+                            <li>
+                                Los item solo se agregaran a la factura seleccionada si la orden de compra de la que provienen tiene el mismo proveedor que la factura seleccionada, los item que no sean añadidos a una factura pueden ser colocados manualmente desde la liquidación de importación
+                            </li>
+                        </ul>
+                    </group>
+                    <footer>
+                        <button name="action_confirm" string="Confirmar operación" type="object" class="oe_highlight"
+                        confirm="Esta seguro que la información está correcta."/>
+                        o
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ek_import_generate_order_wizard" model="ir.actions.act_window">
+            <field name="name">Asignar a Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ek.import.generate.order</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ek_import_generate_order_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <!--<record model="ir.values" id="value_ek_import_generate_order">
+            <field name="model_id" ref="model_ek_import_liquidation"/>
+            <field name="name">Asignar a Importación</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('ek_purchase_import_liquidation.action_ek_import_generate_order_wizard'))"/>
+            <field name="key">action</field>
+            <field name="model">purchase.order.line</field>
+        </record>-->
+
+
+    </data>
+</openerp>

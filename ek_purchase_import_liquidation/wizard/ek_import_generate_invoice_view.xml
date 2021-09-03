@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_ek_import_generate_invoice_wizard" model="ir.ui.view">
+            <field name="name">ek.import.generate.invoice.wizard</field>
+            <field name="model">ek.import.generate.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Genrar Facturas">
+                    <group string="Generar Facturas">
+                        <group>
+                            <field name="is_gruping"/>
+                            <field name="name" required="1"/>
+                            <field name="journal_id" domain="[('type','=','purchase')]" required="1"/>
+                        </group>
+                        <group>
+                            <field name="date" required="1"/>
+                            <field name="l10n_latam_document_type_id" domain="[('code','in',('15','02','03','100'))]" required="1"/>
+                            <field name="reference"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <field name="note"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm" string="Confirmar operación" type="object" class="oe_highlight"
+                        confirm="Esta seguro que la información está correcta."/>
+                        o
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ek_import_generate_invoice_wizard" model="ir.actions.act_window">
+            <field name="name">Generar Factura desde Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ek.import.generate.invoice</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ek_import_generate_invoice_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

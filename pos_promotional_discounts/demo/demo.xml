@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+    <data> 
+        <record model="discount.products" id="discount_products_1">
+            <field name="apply_on">1_products</field>
+            <field name="product_id" eval="ref('product.product_product_7')"/>
+            <field name="percent_discount">5</field>
+        </record>
+
+        <record model="discount.products" id="discount_products_2">
+            <field name="apply_on">1_products</field>
+            <field name="product_id" eval="ref('product.product_product_9')"/>
+            <field name="percent_discount">5</field>
+        </record>
+
+        <record model="pos.promotions" id="pos_promotions_1">
+            <field name="name">Every Order - Discount on Products</field>
+            <field name="offer_type">discount_on_products</field>
+            <field name="pos_ids" eval="[(6,0,[ref('point_of_sale.pos_config_main')])]"/>
+            <field name="discounted_ids" eval="[(6,0,[ref('pos_promotional_discounts.discount_products_1'),
+                                                         ref('pos_promotional_discounts.discount_products_2')
+                                                         ])]"/>
+        </record>
+
+        <record model="buy_x.get_y" id="buy_x_get_y_1">
+            <field name="product_x_id" eval="ref('product.product_product_5')"/>
+            <field name="qty_x">5</field>
+            <field name="product_y_id" eval="ref('product.product_delivery_02')"/>
+        </record>
+
+        <record model="pos.promotions" id="pos_promotions_2">
+            <field name="name">Every Order - Buy X Get Y</field>
+            <field name="offer_type">buy_x_get_y</field>
+            <field name="pos_ids" eval="[(6,0,[ref('point_of_sale.pos_config_main')])]"/>
+            <field name="buy_x_get_y_ids" eval="[(6,0,[ref('pos_promotional_discounts.buy_x_get_y_1')
+                                                         ])]"/>
+        </record>
+
+        <record model="buy_x.get_y_qty" id="buy_x_get_y_qty_1">
+            <field name="product_x_id" eval="ref('product.product_product_6')"/>
+            <field name="qty_x">5</field>
+            <field name="product_y_id" eval="ref('point_of_sale.monitor_stand')"/>
+            <field name="qty_y">2</field>
+        </record>
+
+        <record model="pos.promotions" id="pos_promotions_3">
+            <field name="name">Every Order - Buy X Get Y Qty Free</field>
+            <field name="offer_type">buy_x_get_y_qty</field>
+            <field name="pos_ids" eval="[(6,0,[ref('point_of_sale.pos_config_main')])]"/>
+            <field name="buy_x_get_y_ids" eval="[(6,0,[ref('pos_promotional_discounts.buy_x_get_y_qty_1')
+                                                         ])]"/>
+        </record>
+
+        <record model="buy_x.get_discount_on_y" id="buy_x_get_discount_on_y_1">
+            <field name="product_x_id" eval="ref('product.product_product_13')"/>
+            <field name="qty_x">5</field>
+            <field name="product_y_id" eval="ref('product.product_delivery_01')"/>
+            <field name="discount">5</field>
+        </record>
+
+        <record model="pos.promotions" id="pos_promotions_4">
+            <field name="name">Every Order - Buy X Get Discount on Y Product</field>
+            <field name="offer_type">buy_x_get_discount_on_y</field>
+            <field name="pos_ids" eval="[(6,0,[ref('point_of_sale.pos_config_main')])]"/>
+            <field name="buy_x_get_discount_on_y_ids" eval="[(6,0,[ref('pos_promotional_discounts.buy_x_get_discount_on_y_1')
+                                                         ])]"/>
+        </record>
+
+        <record model="discount.sale.total" id="discount_sale_total_1">
+            <field name="max_amount">10000</field>
+            <field name="min_amount">0</field>
+            <field name="discount">5</field>
+        </record>
+
+        <!-- <record model="pos.promotions" id="pos_promotions_4">
+            <field name="name">Every Order - Buy X Get Discount on Y Product</field>
+            <field name="offer_type">get_x_discount_on_sale_total</field>
+            <field name="pos_ids" eval="[(6,0,[ref('point_of_sale.pos_config_main')])]"/>
+            <field name="discount_on_sale_total" eval="[(6,0,[ref('pos_promotional_discounts.discount_sale_total_1')
+                                                         ])]"/>
+        </record> -->
+        
+    </data>
+</odoo>

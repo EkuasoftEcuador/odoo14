@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+perm_ek_incoterms_terms,ek.incoterms.terms,model_ek_incoterms_terms,purchase.group_purchase_user,1,1,1,1
+perm_ek_tariff_rule_category,ek.tariff.rule.category,model_ek_tariff_rule_category,purchase.group_purchase_user,1,1,1,1
+perm_ek_tariff_rule,ek.tariff.rule,model_ek_tariff_rule,purchase.group_purchase_user,1,1,1,1
+perm_ek_tariff_heading,ek.tariff.heading,model_ek_tariff_heading,purchase.group_purchase_user,1,1,1,1
+perm_ek_stock_incoterms_terms,ek.stock.incoterms.terms,model_ek_stock_incoterms_terms,purchase.group_purchase_user,1,1,1,1
+perm_ek_stock_incoterms_terms,ek.stock.incoterms.terms,model_ek_stock_incoterms_terms,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation,ek.import.liquidation,model_ek_import_liquidation,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation_line,ek.import.liquidation.line,model_ek_import_liquidation_line,purchase.group_purchase_user,1,1,1,1
+perm_ek_tariff_rule_line,ek.tariff.rule.line,model_ek_tariff_rule_line,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_generate_invoice,ek.import.generate.invoice,model_ek_import_generate_invoice,purchase.group_purchase_user,1,1,1,1
+perm_import_liquidation_invoice,ek.import.liquidation.invoice,model_ek_import_liquidation_invoice,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation_breakdown_expenses,ek.import.liquidation.breakdown.expenses,model_ek_import_liquidation_breakdown_expenses,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation_type_docs,ek.import.liquidation.type.docs,model_ek_import_liquidation_type_docs,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation_related_documents,ek.import.liquidation.related.documents,model_ek_import_liquidation_related_documents,purchase.group_purchase_user,1,1,1,1
+perm_ek_import_liquidation_related_documents_line,ek.import.liquidation.related.documents.line,model_ek_import_liquidation_related_documents_line,purchase.group_purchase_user,1,1,1,1
